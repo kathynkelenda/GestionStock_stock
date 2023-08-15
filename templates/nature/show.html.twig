@@ -1,0 +1,25 @@
+
+
+{% extends 'base.html.twig' %}
+    
+{% block title %}Voir cet utilisateur{% endblock %}
+
+{% block body %}
+
+        <h1> Détails utilisateur </h1>
+
+        <div class="alert alert-success">
+
+            <table>
+            <td>
+                <h4> Nom de cette nature de produit:</h4>{{nature.nameNature}} <br>
+                
+            </td>
+            <table>
+
+        </div>
+
+        <a href="{{ path('nature.list') }}"> Voir toutes les natures de produit</a>
+
+
+{% endblock body %}

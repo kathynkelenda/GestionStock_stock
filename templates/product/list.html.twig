@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    TOUS LES PRODUITS
+{% endblock %}
+
+{% block body %}
+
+        
+        <div class="container mt-4">
+
+            <h1>Liste des produits</h1>
+
+
+          <!--  <button type="submit" class="btn btn-success">  
+                <a href="{{path('product.new')}}" class="btn btn-info" >Créer un nouveau produit</a>
+             </button>-->
+             
+            
+            <table class="table table-hover">  
+                    <thead>
+                        <tr class="table-dark">
+                            
+                            <th scope="col">NOM</th>
+                            <th scope="col">PRIX</th>
+                            <th scope="col">EN STOCK</th>
+                            <th scope="col">VOIR</th>
+                            <th scope="col">MODIFIER</th>
+                            <th scope="col">SUPPRIMER</th>
+                           
+                        </tr>
+                    </thead>
+
+
+                <tbody>
+                    {% for prod in product %}
+                    
+                        <tr class="table-secondary">
+                        
+                        
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.nameProduct}}</font></font></td>
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.priceProduct}}</font></font></td>
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.quantityProduct}}</font></font></td>
+                        
+                        
+                        
+                        <td>
+                            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><a href=" {{path('product.show', {"id": prod.id})}}" class="btn btn-success"> Voir</a></font></font>
+                        
+
+                        <td>
+                            <a href="{{path('product.edit',{"id": prod.id})}}" class="btn btn-info"  >Modifier</a>
+                        </td>
+
+                        <td>
+                            <a href="{{path('product.delete',{"id": prod.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">Supprimer</a>
+                        </td>
+                        </tr>
+
+                    {% else %}
+
+                        <label>
+                            Aucun produit enregistré à ce jour.
+                        </label>
+
+                    {% endfor %}
+                    
+                </tbody>
+                
+                 
+
+{% endblock body %}
+

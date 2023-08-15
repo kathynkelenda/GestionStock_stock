@@ -1,0 +1,26 @@
+
+
+{% extends 'base.html.twig' %}
+    
+{% block title %}Voir cet utilisateur{% endblock %}
+
+{% block body %}
+
+        <h1> Détails utilisateur </h1>
+
+        <div class="alert alert-success">
+
+            <table>
+            <td>
+                <h4>id:</h4>{{user.username}} <br>
+                <h4>Nom :</h4>{{user.email}} <br>  
+                
+            </td>
+            <table>
+
+        </div>
+
+        <a href="{{ path('user.list') }}">Retour</a>
+
+
+{% endblock body %}

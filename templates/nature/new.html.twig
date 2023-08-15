@@ -1,0 +1,47 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %} 
+
+    {% if editAction %} 
+        Modifier nature
+    {% else %}
+        Nouvelle nature
+    {% endif %}
+
+{% endblock %} 
+
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+
+    <a href="{{ path('nature.list') }}"> Cliquer ici pour consulter la liste de nature de produit</a><br><br><br>
+    {% if editAction %} 
+        <h3> Modifier cette nature  </h3>
+    {% else %}
+        <h3> Création d'un nouvelle nature pour vos produits</h3>
+    {% endif %} 
+
+    {{form_start(form)}}
+
+        {{form_row(form.nameNature,{'label':'Nom','attr':{'placeholder': "Fruit/ Legume / savon..."}})}}
+        {{form_row(form.To_belong,{'label':'Catégorie','attr':{'placeholder': "Alimentaire/ non?"}})}}
+        
+
+            <button type="submit" class="btn btn-success">
+                {% if editAction %}
+                    <h4 onclick="return confirm('Voulez-vous confirmer la modification de cette nature de produit?')">
+                    Enregistrer les modifications
+                    </h4
+                {% else %}
+                    Créer une nature pour vos produit
+                {% endif %}
+            
+            </button>
+
+        {{form_end(form)}}
+
+{% endblock %}

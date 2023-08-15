@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} 
+
+        Modifier du mot de passe
+
+{% endblock %} 
+
+{% block body  %} 
+
+        
+        <h1> Formulaire de modification de mot de passe</h1> <br><br>
+
+        <a href="{{ path('user.list') }}">Retour</a>
+
+        
+            
+        {{form_start(form)}}
+
+            {{form_row(form.password,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
+            {{form_row(form.confirmPassword,{'label':'Email','attr':{'placeholder': "Adresse email"}})}}
+            {{form_row(form.newPassword,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
+            
+            
+            <button type="submit" class="btn btn-success">
+
+                <h4 onclick="return confirm('Voulez-vous confirmer la modification de votre mot de passe?')">
+                    Enregistrer les modifications
+                </h4>
+        
+            </button>
+
+        
+
+        {{form_end(form)}}
+
+        
+{% endblock %} 

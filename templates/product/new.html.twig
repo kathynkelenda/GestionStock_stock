@@ -1,0 +1,50 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %} 
+
+    {% if editAction %} 
+        Modifier produit
+    {% else %}
+        Nouveau produit
+    {% endif %}
+
+{% endblock %} 
+
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+
+    {% if editAction %} 
+        <h1> Modifier ce produit  </h1>
+    {% else %}
+        <h1> Création d'un nouveau produit</h1>
+    {% endif %} 
+
+    {{form_start(form)}}
+
+        {{form_row(form.nameProduct,{'label':'Nom','attr':{'placeholder': "Nom du produit"}})}}
+        {{form_row(form.priceProduct,{'label':'Prix','attr':{'placeholder': "Prix du produit"}})}}
+        {{form_row(form.vatProdut,{'label':'Tva','attr':{'placeholder': "Tva du produit"}})}}
+        {{form_row(form.codeProduct,{'label':'Code','attr':{'placeholder': "Code du produit"}})}}
+        {{form_row(form.quantityProduct,{'label':'Qantité','attr':{'placeholder': "Quantité en stock du produit"}})}}
+        {{form_row(form.quantityAlert,{'label':'Alerte','attr':{'placeholder': "Quantité d'alerte pour réaprovisionnement"}})}}
+        {{form_row(form.To_possess,{'label':'Nature','attr':{'placeholder': "Fruit/Légume/Gel vaisselle..."}})}}
+
+            <button type="submit" class="btn btn-success">
+                {% if editAction %}
+                    <h4 onclick="return confirm('Voulez-vous confirmer la modification de ce produit?')">
+                    Enregistrer les modifications
+                    </h4
+                {% else %}
+                    Créer le produit
+                {% endif %}
+            
+            </button>
+
+        {{form_end(form)}}
+
+{% endblock %}

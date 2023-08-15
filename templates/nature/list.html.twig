@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    TOUTES LES NATURES natUITS
+{% endblock %}
+
+{% block body %}
+
+        <div class="container mt-4">
+
+            <h3>Voici la liste des natures enregistrées pour les produits à ce jour</h3>
+            
+            <table class="table table-hover">  
+                    <thead>
+                        <tr class="table-dark">
+                            
+                            <th scope="col">NOM</th>
+                            <th scope="col">CATEGORIE</th>
+                            <th scope="col">VOIR</th>
+                            <th scope="col">MODIFIER</th>
+                            <th scope="col">SUPPRIMER</th>
+                           
+                        </tr>
+                    </thead>
+
+
+                <tbody>
+                    {% for nat in nature %}
+                    
+                        <tr class="table-secondary">
+                        
+                        
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{nat.nameNature}}</font></font></td>
+                        <td></td>
+
+                        <td>
+                            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><a href=" {{path('nature.show', {"id": nat.id})}}" class="btn btn-success"> Voir</a></font></font>
+                        
+
+                        <td>
+                            <a href="{{path('nature.edit',{"id": nat.id})}}" class="btn btn-info"  >Modifier</a>
+                        </td>
+
+                        <td>
+                            <a href="{{path('nature.delete',{"id": nat.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">Supprimer</a>
+                        </td>
+                        </tr>
+
+                    {% else %}
+
+                        <label>
+                            Aucune nature enregistré à ce jour pour les produits.
+                        </label>
+
+                    {% endfor %}
+                    
+                </tbody>
+                
+                 
+
+{% endblock body %}
+

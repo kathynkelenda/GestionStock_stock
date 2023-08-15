@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    TOUS LES UTILISATEURS
+{% endblock %}
+
+{% block body %}
+
+
+        <div class="container mt-4">
+
+            <h1>Liste des utilisateurs</h1>
+
+            
+            <table class="table table-hover">  
+                    <thead>
+                        <tr class="table-dark">
+                            
+                            <th scope="col">NOM D'UTILISATEUR</th>
+                            <th scope="col">ADRESSE EMAIL</th>
+                            <th scope="col">VOIR</th>
+                            <th scope="col">MODIFIER</th>
+                            <th scope="col">SUPPRIMER</th>
+                           
+                        </tr>
+                    </thead>
+
+
+                <tbody>
+                    {% for us in user %}
+                    
+                        <tr class="table-secondary">
+                        
+                        
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.username}}</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.email}}</font></font></td>
+                            
+                            <td>
+                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><a href=" {{path('user.show', {"id": us.id})}}" class="btn btn-success"> Voir</a></font></font>
+                            
+                            <td>
+                                <a href="{{path('user.edit',{"id": us.id})}}" class="btn btn-info"  >Modifier</a>
+                            </td>
+
+                            <td>
+                                <a href="{{path('user.delete',{"id": us.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">Supprimer</a>
+                            </td>
+                            
+                        </tr>
+
+
+                    {% else %}
+
+                        <label>
+                            Aucun utilisateur enregistré à ce jour.
+                        </label>
+
+                    {% endfor %}
+                    
+                </tbody>
+                
+                 
+
+{% endblock body %}
+
