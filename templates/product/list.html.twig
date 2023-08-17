@@ -11,12 +11,8 @@
 
             <h1>Liste des produits</h1>
 
+    
 
-          <!--  <button type="submit" class="btn btn-success">  
-                <a href="{{path('product.new')}}" class="btn btn-info" >Créer un nouveau produit</a>
-             </button>-->
-             
-            
             <table class="table table-hover">  
                     <thead>
                         <tr class="table-dark">
@@ -24,6 +20,7 @@
                             <th scope="col">NOM</th>
                             <th scope="col">PRIX</th>
                             <th scope="col">EN STOCK</th>
+                            <th scope="col">NATURE</th>
                             <th scope="col">VOIR</th>
                             <th scope="col">MODIFIER</th>
                             <th scope="col">SUPPRIMER</th>
@@ -41,7 +38,7 @@
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.nameProduct}}</font></font></td>
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.priceProduct}}</font></font></td>
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.quantityProduct}}</font></font></td>
-                        
+                        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{prod.ToPossess.nameNature}}</font></font></td>
                         
                         
                         <td>

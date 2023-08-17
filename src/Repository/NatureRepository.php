@@ -75,4 +75,22 @@ class NatureRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    
+   
+   /* public function Category($value): ?Nature
+    {
+        $queryBuilder = $entityManager()->createQueryBuilder();
+        $query= $entityManager()->createQuery(
+            //SELECT * FROM A   INNER JOIN B ON A.key = B.key
+            'SELECT To_belong
+             FROM App\Entity\Nature 
+             
+             '
+        );
+
+        $query=getResult();
+    }
+    
+    */
 }

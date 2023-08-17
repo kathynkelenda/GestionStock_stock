@@ -6,7 +6,7 @@
 
 {% block body %}
 
-        <h1> Détails utilisateur </h1>
+        <h1> Détails sur ce produit </h1>
         
         <div class="alert alert-success">
 
@@ -15,7 +15,7 @@
                 <h4>id:</h4>{{product.id}} <br>
                 <h4>Nom :</h4>{{product.nameProduct}} <br>  
                 <h4>Prix:</h4> {{product.priceProduct}} <br>
-                
+                <h4>Nature:</h4> {{product.ToPossess.nameNature}} <br>
                 <h4>Tva:</h4>{{product.vatProdut}} <br>
                 <h4>Code:</h4> {{product.codeProduct}} <br>
                 <h4>Quantité en stock:</h4> {{product.quantityProduct}} <br>

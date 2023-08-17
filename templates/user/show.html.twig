@@ -6,19 +6,21 @@
 
 {% block body %}
 
-        <h1> Détails utilisateur </h1>
+        <h1> Détails sur cet utilisateur </h1>
 
         <div class="alert alert-success">
 
             <table>
             <td>
-                <h4>id:</h4>{{user.username}} <br>
-                <h4>Nom :</h4>{{user.email}} <br>  
+                <h4>Nom d'utilisateur:</h4>{{user.username}} <br>
+                <h4>Adresse email :</h4>{{user.email}} <br>  
+                <h4> Fonction:</h4>{{user.ToOccupy.namePosition}} <br>
+                <h4> Statut :</h4>{{user.ToHave.nameStatus}} <br>  
                 
             </td>
             <table>
 
-        </div>
+        </div> <br>
 
         <a href="{{ path('user.list') }}">Retour</a>
 

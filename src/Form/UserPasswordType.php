@@ -15,10 +15,9 @@ class UserPasswordType extends AbstractType
     {
         $builder
         ->add('password',PasswordType::class)
-        ->add('confirmPassword',PasswordType::class)
-        ->add('newPassword',PasswordType::class,[
-            'constraints' => [new Assert\NotBlank()]
-        ]);
+        ->add('confirmPassword', PasswordType::class)
+        ->add('newPassword',PasswordType::class
+        );
            
     }
 

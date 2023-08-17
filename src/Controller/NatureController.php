@@ -28,9 +28,9 @@ class NatureController extends AbstractController
         }
 
         $nature = $doctrine->getRepository(Nature::class)->findAll();
-
+       
         return $this->render('nature/list.html.twig', [
-            'nature' => $nature
+            'nature' => $nature,   
         ]);
     }
     

@@ -12,6 +12,13 @@
             <h1>Liste des utilisateurs</h1>
 
             
+            <td>
+                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    <a href=" {{path('security.inscription')}}" class="btn btn-success"> Enrégistrer un nouvel utilisateur</a>
+                </font>
+            
+            <td>
+
             <table class="table table-hover">  
                     <thead>
                         <tr class="table-dark">
@@ -36,14 +43,18 @@
                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.email}}</font></font></td>
                             
                             <td>
-                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><a href=" {{path('user.show', {"id": us.id})}}" class="btn btn-success"> Voir</a></font></font>
+                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                    <a href=" {{path('user.show', {"id": us.id})}}" class="btn btn-success"> Voir</a>
+                                </font>
                             
                             <td>
                                 <a href="{{path('user.edit',{"id": us.id})}}" class="btn btn-info"  >Modifier</a>
                             </td>
 
                             <td>
-                                <a href="{{path('user.delete',{"id": us.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">Supprimer</a>
+                                <a href="{{path('user.delete',{"id": us.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">
+                                    Supprimer
+                                </a>
                             </td>
                             
                         </tr>

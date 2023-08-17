@@ -15,6 +15,7 @@
 
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
         {% endblock %}
     </head>
 
@@ -30,19 +31,29 @@
 
                     <ul class="navbar-nav me-auto">
 
-                        <li class="nav-item">
-                        <a class="nav-link active" href="{{path('product.list')}}">Gestion des produits </a> 
-                        </li>
-            
 
-            
-
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{path('user.list')}}">Gestion des utilisateurs</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Test/Gestion produit</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{path('product.list')}}">Tous les produits</a>
+                                <a class="dropdown-item" href="{{path('product.new')}}">Créer un produit</a>
+                                <a class="dropdown-item" href="#"></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{path('nature.list')}}">Nature des produits</a>
+                            </div>
                         </li>
-            
-            
-                       
+
+                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Test/Gestion utilisateurs</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{path('user.list')}}">Tous les utilisateurs</a>
+                                <a class="dropdown-item" href="{{path('security.inscription')}}">Créer un utilisateur</a>
+                                <a class="dropdown-item" href="#"></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href=""></a>
+                            </div>
+                        </li>
+    
             {% if not app.user %}
                         <li class="nav-item" >
                             <a href="{{path('security.login')}}" class="nav-link"> Connexion</a>
@@ -69,11 +80,12 @@
                 
                 </div>
             {% endif %}
+            
         {% block body %}
 
             
 
-       <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
+      
         {% endblock %}
         </div>
     </body>

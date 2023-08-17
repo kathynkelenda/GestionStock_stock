@@ -12,8 +12,9 @@ use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
 use App\Repository\MovementRepository;
 
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -137,48 +138,6 @@ class UserController extends AbstractController
   
     }
 
-    /**
-     * @Route("user/{id}/editmdp", name="user.editmdp")
-     */
-    public function editPassword(User $user, int $id ,Request $request, ManagerRegistry $doctrine, UserPasswordEncoderInterface $encoder){
-
-        $user = $doctrine->getRepository(User::class)->find($id);
-
-        $form=$this->createForm(UserPasswordType::class,$id);
-
-        $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()){
-            if($hasher->isPasswordvali($user, $form->getDate()->getPlainPassword())){
-
-                $user->setPassword(
-
-                    $form->getData()->getNewPassword()
-                );
-
-                $this->addFlush(
-                    'success',
-                    'Le mot de passe a été modifié.'
-                );
-                return $this->redirectToRoute('security.login');
-            }else{
-                $this->addFlush(
-                    'success',
-                    'Le mot de passe renseigné est incorrect.'
-                );
-            }
-            
-
-            $manager = $doctrine->getManager();
-            $manager->persist($user);
-            $manager->flush();
-   
-        }
-
-        return  $this->render('user/editmdp.html.twig',[
-            'form'=>$form->createView(),
-            'user'=>$user
-        ]);
-    }
+    
     
 }

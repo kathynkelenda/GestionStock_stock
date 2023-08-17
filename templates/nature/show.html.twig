@@ -6,13 +6,14 @@
 
 {% block body %}
 
-        <h1> Détails utilisateur </h1>
+        <h1> Détails sur cette nature </h1>
 
         <div class="alert alert-success">
 
             <table>
             <td>
                 <h4> Nom de cette nature de produit:</h4>{{nature.nameNature}} <br>
+                <h4> Sa catégorie:</h4>{{nature.ToBelong.nameCategory}} <br>
                 
             </td>
             <table>
