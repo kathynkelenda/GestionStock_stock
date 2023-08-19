@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
-use App\Form\NewProductType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Product;
 use App\Entity\Nature;
+use App\Entity\Product;
 use App\Entity\Movement;
-use App\Repository\ProductRepository;
+use App\Form\NewProductType;
 use App\Repository\NatureRepository;
+use App\Repository\ProductRepository;
 use App\Repository\MovementRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ProductController extends AbstractController
@@ -43,6 +44,7 @@ class ProductController extends AbstractController
     
     // CREE ET MODIFIE UN PRODUIT
      /**
+    * @IsGranted("ROLE_ADMIN") 
      * @Route("/product/new",name="product.new")
      * @Route("/product/{id}/edit", name="product.edit")
      */
@@ -88,6 +90,7 @@ class ProductController extends AbstractController
 
     //SUPPRIME UN PRODUIT 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/product/delete/{id}",name="product.delete")
      */
     public function delete(ManagerRegistry $doctrine, int $id):Response{

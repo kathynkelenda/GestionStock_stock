@@ -66,6 +66,18 @@ class User implements UserInterface
      */
     private $To_manage;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    
+
     public function __construct()
     {
         $this->To_manage = new ArrayCollection();
@@ -127,7 +139,22 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getRoles(): array
+    {
+        $roles=$this->roles;
 
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
 
 
 
@@ -183,9 +210,20 @@ class User implements UserInterface
 
     public function getSalt(){}
 
-    public function getRoles(){
-        return ['ROLE_USER'];
+    
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
     }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    
     
     
     

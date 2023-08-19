@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserController extends AbstractController
 {
@@ -43,6 +44,7 @@ class UserController extends AbstractController
 
     // MODIFIER UN UTILISATEUR
     /**
+     * @IsGranted("ROLE_ADMIN") 
      * @Route("/user/{id}/edit", name="user.edit")
      */
     
@@ -80,6 +82,7 @@ class UserController extends AbstractController
 
     //SUPPRIMER UN UTILISATEUR 
     /**
+     * @IsGranted("ROLE_ADMIN") 
      * @Route("/user/delete/{id}",name="user.delete")
      */
     public function delete(ManagerRegistry $doctrine, int $id):Response{
@@ -116,6 +119,7 @@ class UserController extends AbstractController
 
     //VOIR UN UTILISATEUR 
     /**
+     * @IsGranted("ROLE_ADMIN") 
      * @Route("user/show/{id}", name="user.show")
      */
     public function show(int $id, ManagerRegistry $doctrine): Response{

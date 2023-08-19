@@ -11,7 +11,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 
 
 class RegistrationType extends AbstractType
@@ -21,6 +23,14 @@ class RegistrationType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
+            ->add('roles', ChoiceType::class,[
+                'choices' => [
+                    'utilisateur' => 'ROLE_USER',
+                    'administrateur' => 'ROLE_ADMIN',
+                ],
+                'expanded' => true,
+                'multiple' => true
+            ])
             ->add('password',PasswordType::class)
             ->add('confirmPassword',PasswordType::class)
             ->add('To_have',EntityType::class,[

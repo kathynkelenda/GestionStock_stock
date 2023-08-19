@@ -5,14 +5,24 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
+use App\Form\ForgotPasswordRequestType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+
+
+
+
+
+
 
 class SecurityController extends AbstractController
 {
@@ -75,6 +85,78 @@ class SecurityController extends AbstractController
      * @Route("/deconnexion",name="security.logout")
      */
     public function logout(){
+        
+    }
+
+
+    //Permet en donnant son email, de recevoir un lien de réinitialisation
+    /**
+     * @Route("/forgotPass",name="security.forgotPass")
+     */
+    public function forgotPass(UserRepository $UserRepository, TokenGeneratorInterface $TokenGeneratorInterface,
+        ManagerRegistry $doctrine, Request $request):Response{
+
+        $form=$this->createForm(ForgotPasswordRequestType::class);
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            //Rétrouve un utilisateur par son email
+            $user = $UserRepository->findOneByEmail($form->get('email')->getData());
+
+            //Verifie si on a un utilisateur
+            if($user){
+
+                //On génere un token de réinitialisation(Permettra d'identifier de manière unique l'utilisateur)  
+                $token = $TokenGeneratorInterface->generateToken();
+                $user ->setResetToken($token);
+
+                $manager = $doctrine->getManager();
+                $manager->persist($user);
+                $manager->flush();
+
+               
+                //On genere un lien de réinitialisation du mdp 
+                $url = $this->generateUrl('security.lienPass',['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+               
+               
+                        //Si l'utilisateur n'est pas retrouvé
+                    $this->addFlash(
+                        'success',
+                        'Email envoyé avec succès'
+                    );
+            return $this->redirectToRoute('security.login');
+
+            }
+
+        
+            //Si l'utilisateur n'est pas retrouvé
+            $this->addFlash(
+                'danger',
+                'Un problème est survenu'
+            );
+            return $this->redirectToRoute('security.login');
+
+            
+        }
+    
+         return $this->render('security/resetPass_request.html.twig',[
+            'form' => $form->createView()
+         ]) ;
+        
+    }
+
+
+
+    //Permet en en cliquant sur le lien de réinitialisation, reçu par mail de choisir un mdp
+     
+
+    /**
+     * @Route("/forgotPass/{token}",name="security.lienPass")
+     */
+    public function lienPass(){
         
     }
 

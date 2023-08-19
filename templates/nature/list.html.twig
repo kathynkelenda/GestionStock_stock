@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    TOUTES LES NATURES natUITS
+    TOUTES LES NATURES DE PRODUIT
 {% endblock %}
 
 {% block body %}
@@ -17,8 +17,11 @@
                             <th scope="col">NOM</th>
                             <th scope="col">CATEGORIE</th>
                             <th scope="col">VOIR</th>
+
+                            {% if is_granted('ROLE_ADMIN') %}
                             <th scope="col">MODIFIER</th>
                             <th scope="col">SUPPRIMER</th>
+                            {% endif %}
                            
                         </tr>
                     </thead>
@@ -35,17 +38,29 @@
                        
 
                         <td>
-                            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><a href=" {{path('nature.show', {"id": nat.id})}}" class="btn btn-success"> Voir</a></font></font>
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    <a href=" {{path('nature.show', {"id": nat.id})}}" class="btn btn-success"> 
+                                        Voir
+                                    </a>
+                                </font>
+                            </font>
                         
-
+                    {% if is_granted('ROLE_ADMIN') %}
                         <td>
-                            <a href="{{path('nature.edit',{"id": nat.id})}}" class="btn btn-info"  >Modifier</a>
+                            <a href="{{path('nature.edit',{"id": nat.id})}}" class="btn btn-info"  >
+                                Modifier
+                            </a>
                         </td>
 
                         <td>
-                            <a href="{{path('nature.delete',{"id": nat.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">Supprimer</a>
+                            <a href="{{path('nature.delete',{"id": nat.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">
+                                Supprimer
+                            </a>
                         </td>
+
                         </tr>
+                    {% endif %}
 
                     {% else %}
 

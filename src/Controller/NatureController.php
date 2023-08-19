@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+
 
 class NatureController extends AbstractController
 {   
@@ -37,6 +40,7 @@ class NatureController extends AbstractController
 
     // CREE ET MODIFIE UNE NATURE
      /**
+      * @IsGranted("ROLE_ADMIN") 
      * @Route("/nature/new",name="nature.new")
      * @Route("/nature/{id}/edit", name="nature.edit")
      */
@@ -106,6 +110,7 @@ class NatureController extends AbstractController
 
     //SUPPRIME UN PRODUIT 
     /**
+     * @IsGranted("ROLE_ADMIN") 
      * @Route("/nature/delete/{id}",name="nature.delete")
      */
     public function delete(ManagerRegistry $doctrine, int $id):Response{

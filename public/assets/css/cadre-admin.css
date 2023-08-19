@@ -1,0 +1,18 @@
+.contain{
+    display: flex;
+    column-gap: ;
+}
+
+.menu_admin{
+    height: fit-content;
+    width: fit-content;
+    background-color: blue;
+    display:inline-block;
+}
+
+.contenu_page{
+    height: auto;
+    width: ;
+    display:inline-block;
+}
+

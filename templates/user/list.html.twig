@@ -17,7 +17,7 @@
                     <a href=" {{path('security.inscription')}}" class="btn btn-success"> Enrégistrer un nouvel utilisateur</a>
                 </font>
             
-            <td>
+            <td> <br><br>
 
             <table class="table table-hover">  
                     <thead>
@@ -25,6 +25,7 @@
                             
                             <th scope="col">NOM D'UTILISATEUR</th>
                             <th scope="col">ADRESSE EMAIL</th>
+                            
                             <th scope="col">VOIR</th>
                             <th scope="col">MODIFIER</th>
                             <th scope="col">SUPPRIMER</th>
@@ -41,6 +42,7 @@
                         
                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.username}}</font></font></td>
                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.email}}</font></font></td>
+
                             
                             <td>
                                 <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
@@ -62,6 +64,7 @@
 
                     {% else %}
 
+                        <br><br>
                         <label>
                             Aucun utilisateur enregistré à ce jour.
                         </label>

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}  Réinitialisation mdp  {% endblock %}
+
+{% block body %}
+
+   
+    <section class="container my-3">
+        <div class="row">
+            <div class = "col">
+
+                <h1>Réinitialisation de mot de passe</h1>
+
+                
+                {{form_start(form)}}
+
+                    {{form_row(form.email,{'label':'Email','attr':{'placeholder': "Veuillez saisir l'email rattaché à votre compte"}})}}
+
+                    
+                    <button type$="submit" class="btn btn-success">
+                        Envoyer
+                    </button>
+                
+                {{form_end(form)}}
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+{% endblock %}

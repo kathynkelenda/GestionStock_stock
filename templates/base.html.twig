@@ -9,8 +9,11 @@
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+
+          
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
+            <link href="public/assets/css/style.css" rel="stylesheet">
         {% endblock %}
 
         {% block javascripts %}
@@ -21,72 +24,33 @@
 
     <body> 
 
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{path('product.list')}}">GestionStock</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarColor01">
+        {# Barre de navigation #} 
 
-                    <ul class="navbar-nav me-auto">
+            <div class="menu_admin" >     
+                {% include "other/navbar.html.twig" %}
+            </div>  
 
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Test/Gestion produit</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{path('product.list')}}">Tous les produits</a>
-                                <a class="dropdown-item" href="{{path('product.new')}}">Créer un produit</a>
-                                <a class="dropdown-item" href="#"></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{path('nature.list')}}">Nature des produits</a>
-                            </div>
-                        </li>
-
-                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Test/Gestion utilisateurs</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{path('user.list')}}">Tous les utilisateurs</a>
-                                <a class="dropdown-item" href="{{path('security.inscription')}}">Créer un utilisateur</a>
-                                <a class="dropdown-item" href="#"></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href=""></a>
-                            </div>
-                        </li>
-    
-            {% if not app.user %}
-                        <li class="nav-item" >
-                            <a href="{{path('security.login')}}" class="nav-link"> Connexion</a>
-                        </li>
-            
-            {% else %}
+        {# Vérifie si l'utilisateur est connecté #} 
+            {% if app.user %}
+                    <div class="mb-3">
+                        Vous êtes connecté en tant que  <strong>{{ app.user.username }}</strong>
                     
-                        <li class="nav-item">
-                            <a href="{{path('security.logout')}}" class="nav-link"> Déconnexion</a>
-                        </li>
+                    </div>
+                {% endif %}
 
-            {% endif %}          
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container">
-
-        {% if app.user %}
-                <div class="mb-3">
-                    Vous êtes connecté en tant que  <strong>{{ app.user.username }}</strong>
-                
-                </div>
+        {# Affiche le menu d'administration ssi l'user a le role d'administrateur #} 
+            {% if is_granted('ROLE_ADMIN') %}
+                {% include "other/carte-admin.html.twig" %}
             {% endif %}
-            
-        {% block body %}
 
             
+        {# Contiendra le contenu de chaque autres page du site #}
+        <div class="container" class="contenu_page"> 
+            {% block body %}
+                
+            {% endblock %}
 
-      
-        {% endblock %}
         </div>
     </body>
 
