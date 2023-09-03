@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+
+use App\phpmailer\ServiceMail;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
@@ -89,6 +91,19 @@ class SecurityController extends AbstractController
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
     //Permet en donnant son email, de recevoir un lien de réinitialisation
     /**
      * @Route("/forgotPass",name="security.forgotPass")
@@ -121,25 +136,31 @@ class SecurityController extends AbstractController
                 //On genere un lien de réinitialisation du mdp 
                 $url = $this->generateUrl('security.lienPass',['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
                
-               
-                        //Si l'utilisateur n'est pas retrouvé
-                    $this->addFlash(
-                        'success',
-                        'Email envoyé avec succès'
+                //On crée les données du mail
+                $context = compact(['url'=>$url,'$user'=>$user]);
+
+                /*Envoi mail
+                $mail->send(
+                    'no-reply@gestionStock.fr',
+                     $user->getEmail(),
+                    'Réinitialisation de mot de passe',
+                    'resetPass_lien.html.twig',
+                    $context
+                    
+                );*/
+
+                    //Si l'utilisateur n'est pas retrouvé
+                    $this->addFlash('success','Email envoyé avec succès'
                     );
             return $this->redirectToRoute('security.login');
 
             }
 
-        
             //Si l'utilisateur n'est pas retrouvé
-            $this->addFlash(
-                'danger',
-                'Un problème est survenu'
+            $this->addFlash( 'danger','Un problème est survenu'
             );
             return $this->redirectToRoute('security.login');
-
-            
+   
         }
     
          return $this->render('security/resetPass_request.html.twig',[
@@ -159,5 +180,10 @@ class SecurityController extends AbstractController
     public function lienPass(){
         
     }
+
+
+
+    
+
 
 }

@@ -22,10 +22,12 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('prenom')
             ->add('email')
             ->add('roles', ChoiceType::class,[
                 'choices' => [
                     'utilisateur' => 'ROLE_USER',
+                    'Gestionnaire des produits' => 'ROLE_PRODUCT',
                     'administrateur' => 'ROLE_ADMIN',
                 ],
                 'expanded' => true,
@@ -33,10 +35,7 @@ class RegistrationType extends AbstractType
             ])
             ->add('password',PasswordType::class)
             ->add('confirmPassword',PasswordType::class)
-            ->add('To_have',EntityType::class,[
-                'class'=> Status::class,
-                'choice_label'=>'nameStatus'
-            ])
+            
             ->add('To_occupy',EntityType::class,[
                 'class'=> Position::class,
                 'choice_label'=>'namePosition'

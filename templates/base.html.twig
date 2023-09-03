@@ -3,10 +3,12 @@
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" conten="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link  rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" />
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
+        
+        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
 
@@ -17,6 +19,8 @@
         {% endblock %}
 
         {% block javascripts %}
+
+        
             {#{{ encore_entry_script_tags('app') }}#}
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
         {% endblock %}
@@ -39,19 +43,49 @@
                     </div>
                 {% endif %}
 
-        {# Affiche le menu d'administration ssi l'user a le role d'administrateur #} 
+        {# Affiche le menu d'administration ssi l'user a le role d'administrateur  
             {% if is_granted('ROLE_ADMIN') %}
                 {% include "other/carte-admin.html.twig" %}
-            {% endif %}
-
+            {% endif %} 
+        #}
             
         {# Contiendra le contenu de chaque autres page du site #}
         <div class="container" class="contenu_page"> 
             {% block body %}
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-2">
+
+                            {% block admin %}
+                                    {# Affiche le menu d'administration ssi l'user a le role d'administrateur #} 
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        {% include "other/carte-admin.html.twig" %}
+                                    {% endif %} 
+                            {% endblock %}
+
+                        </div> 
+
+                        <div class="col-10">
+                            {% block page %}
+
+                            {% endblock %}
+                        </div> 
+      
+                    </div>
+                </div>
                 
+        
             {% endblock %}
 
-        </div>
+        </div><br><br>
+
     </body>
+    {# Footer  #}  
+     <footer>
+            <div class="menu_admin" >     
+                {% include "other/footer.html.twig" %}
+            </div> 
+    </footer>
+
 
 </html>

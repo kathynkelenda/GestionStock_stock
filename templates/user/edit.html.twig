@@ -12,16 +12,18 @@
         
         <h1> Formulaire de modification des utilisateurs</h1> <br><br>
 
-        <a href="{{ path('user.list') }}">Retour</a>
+        <a href="{{ path('user.list') }}"> <U> Retour à la liste des utilisateurs</U> </a> <br><br>
 
             
         {{form_start(form)}}
 
             {{form_row(form.username,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
+            {{form_row(form.prenom,{'label':'Prénom ','attr':{'placeholder': ' Entrez votre prenom'}})}}
             {{form_row(form.email,{'label':'Email','attr':{'placeholder': "Adresse email"}})}}
-            {{form_row(form.roles,{'label':'Rôle','attr':{'placeholder': " Utilisateur/administrateur"}})}}
-            {{form_row(form.To_have,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
-            {{form_row(form.To_occupy,{'label':'Email','attr':{'placeholder': "Adresse email"}})}}
+           
+            {{form_row(form.roles,{'label':'Rôle','attr':{'placeholder': " Utilisateur/Gestionnaiadministrateur"}})}}
+            
+            {{form_row(form.To_occupy,{'label':'Fonction','attr':{'placeholder': "Agent/Gérant"}})}}
             
             <button type="submit" class="btn btn-success">
 

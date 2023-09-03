@@ -14,10 +14,17 @@ class UserPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('password',PasswordType::class)
-        ->add('confirmPassword', PasswordType::class)
-        ->add('newPassword',PasswordType::class
+        ->add('password',PasswordType::class,[
+            'empty_data' => ''
+        ])
+        ->add('confirmPassword', PasswordType::class,[
+            'empty_data' => ''
+        ])
+        ->add('newPassword',PasswordType::class,[
+            'empty_data' => ''
+        ]
         );
+        
            
     }
 

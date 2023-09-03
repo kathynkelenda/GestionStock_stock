@@ -1,0 +1,15 @@
+
+
+th,td{
+    min-width:150px ;
+    text-align: center;
+}
+
+.tableau{
+    overflow-x: auto;
+    background-color: green;
+}
+
+.body{
+    background-color: green;
+}

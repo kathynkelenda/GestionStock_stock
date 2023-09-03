@@ -65,6 +65,12 @@ class UserController extends AbstractController
             
             $user = $form->getData();
 
+            if(!$this->getUser() == $user){
+
+                
+                return $this->redirectToRoute('security.login');
+            }
+
             $manager = $doctrine->getManager();
             $manager->persist($user);
             $manager->flush();

@@ -4,20 +4,28 @@
     TOUS LES UTILISATEURS
 {% endblock %}
 
+
 {% block body %}
 
+        {% block stylesheets %}
+            {{ parent() }}
+            <link rel="stylesheet" href="{{ asset('../../assets/css/table.css') }}">
+        {% endblock %}
 
+       
         <div class="container mt-4">
+        <h1>Liste des utilisateurs</h1>
 
-            <h1>Liste des utilisateurs</h1>
 
-            
-            <td>
+            <div class="col-10">
+                <td>
                 <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
                     <a href=" {{path('security.inscription')}}" class="btn btn-success"> Enrégistrer un nouvel utilisateur</a>
                 </font>
             
             <td> <br><br>
+
+        <div >
 
             <table class="table table-hover">  
                     <thead>
@@ -48,7 +56,6 @@
                                 <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
                                     <a href=" {{path('user.show', {"id": us.id})}}" class="btn btn-success"> Voir</a>
                                 </font>
-                            
                             <td>
                                 <a href="{{path('user.edit',{"id": us.id})}}" class="btn btn-info"  >Modifier</a>
                             </td>
@@ -60,7 +67,12 @@
                             </td>
                             
                         </tr>
+     
+                </tbody>  
 
+            
+
+        </div>
 
                     {% else %}
 
@@ -70,10 +82,9 @@
                         </label>
 
                     {% endfor %}
-                    
-                </tbody>
-                
-                 
-
+                         
+        </div>
+    </table> 
+           
 {% endblock body %}
 

@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Nature;
-use App\Repository\NatureRepository;
-
 use App\Form\NatureType;
 
+use App\Repository\NatureRepository;
+
 use Doctrine\Persistence\ManagerRegistry;
+
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
@@ -23,7 +25,7 @@ class NatureController extends AbstractController
     /**
      * @Route("/nature/list",name="nature.list")
      */
-    public function list(ManagerRegistry $doctrine): Response
+    public function list(NatureRepository $NatureRepository,ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
     {
         //Vérifie si l'utilisateur est connecté
         if(!$this->getUser()){
@@ -31,9 +33,20 @@ class NatureController extends AbstractController
         }
 
         $nature = $doctrine->getRepository(Nature::class)->findAll();
+
+        //$pagination = $paginator->paginate(
+           // $nature,
+            //$NatureRepository->paginationQuery(),
+            /** On va get la page actuelle, et par défaut si on n'a pas de page, ce sera la page numéro 1. */
+            //$request->query->getInt('page',1),
+            /** Limite le nombre d'éléments sur une page. */
+           // 2
+    
+        //);
        
         return $this->render('nature/list.html.twig', [
-            'nature' => $nature,   
+            'nature' => $nature, 
+            //'pagination'=>$pagination  
         ]);
     }
     

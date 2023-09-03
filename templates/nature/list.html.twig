@@ -9,6 +9,13 @@
         <div class="container mt-4">
 
             <h3>Voici la liste des natures enregistrées pour les produits à ce jour</h3>
+
+            <td>
+                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    <a href=" {{path('nature.new')}}" class="btn btn-success"> Enrégistrer un nouveau type pour vos produit</a>
+                </font>
+    
+             <td> <br><br>
             
             <table class="table table-hover">  
                     <thead>
@@ -69,6 +76,9 @@
                         </label>
 
                     {% endfor %}
+
+                    {#{{knp_pagination_render(nature)}}#}
+                    
                     
                 </tbody>
                 

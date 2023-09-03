@@ -47,7 +47,32 @@ class NatureRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
+     /**
+     * @return une query de doctrine pour la pagination.
+    */
+    
+     public function paginationQuery()
+    {
+        return $this->paginationQuery('n')
+            ->orderBy('n.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
+    /*public function paginationQuery(int $page, string $slug, int $limit = 2):array
+    {
+        $limit = abs($limit);
+
+        $result = [];//On met les résultats ds un tableau
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+         ->select
+
+        
+        
+    }*/
+
+     // /**
     //  * @return Nature[] Returns an array of Nature objects
     //  */
     /*

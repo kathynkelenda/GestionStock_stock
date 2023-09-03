@@ -51,10 +51,7 @@ class User implements UserInterface
     public $confirmPassword; 
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Status::class)
-     */
-    private $To_have;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=Position::class)
@@ -75,6 +72,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $prenom;
 
     
 
@@ -157,19 +159,6 @@ class User implements UserInterface
     }
 
 
-
-    public function getToHave(): ?Status
-    {
-        return $this->To_have;
-    }
-
-    public function setToHave(?Status $To_have): self
-    {
-        $this->To_have = $To_have;
-
-        return $this;
-    }
-
     public function getToOccupy(): ?Position
     {
         return $this->To_occupy;
@@ -219,6 +208,18 @@ class User implements UserInterface
     public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
