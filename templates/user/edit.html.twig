@@ -9,12 +9,11 @@
 
 {% block body  %} 
 
-        
-        <h1> Formulaire de modification des utilisateurs</h1> <br><br>
-
         <a href="{{ path('user.list') }}"> <U> Retour à la liste des utilisateurs</U> </a> <br><br>
 
-            
+        
+        <h1> Formulaire de modification des utilisateurs</h1> <br><br>
+        
         {{form_start(form)}}
 
             {{form_row(form.username,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
@@ -33,9 +32,6 @@
         
                 </button>
 
-        
-
         {{form_end(form)}}
-
-        
+   
 {% endblock %} 

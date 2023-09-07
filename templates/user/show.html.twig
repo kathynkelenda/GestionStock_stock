@@ -1,28 +1,43 @@
-
-
 {% extends 'base.html.twig' %}
     
 {% block title %}Voir cet utilisateur{% endblock %}
 
 {% block body %}
 
-        <h1> Détails sur cet utilisateur </h1>
+         <a href="{{ path('user.list') }}"> <U>Retour à la liste des utilisateurs</U> </a><br><br>
+
+        <h1> Profil utilisateur </h1>
 
         <div class="alert alert-success">
 
             <table>
-            <td>
-                <h4>Nom d'utilisateur:</h4>{{user.username}} <br>
-                <h4>Adresse email :</h4>{{user.email}} <br>  
-                <h4> Fonction:</h4>{{user.ToOccupy.namePosition}} <br>
-                
-                
-            </td>
+                <td>
+                    <h4>Nom :</h4>{{user.username}} <br>
+                    <h4>Prénom:</h4>{{user.username}} <br>
+                    <h4>Email :</h4>{{user.email}} <br>  
+                    <h4> Fonction:</h4>{{user.ToOccupy.namePosition}} <br>
+                    <h4>Role :</h4> {% for role in user.roles %} 
+
+                                        {% if role == "ROLE_USER" %}
+                                            &nbsp;&nbsp;- Utilisateur
+                                        {% elseif role == "ROLE_PRODUCT" %}
+                                            &nbsp;&nbsp;- Gestionnaire des produits
+                                        {% elseif role == "ROLE_ADMIN" %}
+                                            &nbsp;&nbsp;- Administrateur
+                                        {% endif %}
+
+                                    {% endfor %} 
+                        <br> 
+                </td>
             <table>
 
         </div> <br>
 
-        <a href="{{ path('user.list') }}">Retour</a>
+    {% if app.user == user %}
 
+        <a href="{{ path('user.passwordUpdate',{"id": user.id}) }}" class ="text-primary"> 
+            <U>Modifier mon mot de passe</U> 
+        </a>
+    {% endif %} 
 
 {% endblock body %}

@@ -4,26 +4,45 @@
     TOUS LES PRODUITS
 {% endblock %}
 
-{% block stylesheets %}
-            
-            <link href="{{ asset('css/cadre-admin.css') }}" type="text/css" rel="stylesheet">
-{% endblock %}
 
 {% block body %}
 
+    <h2 class="text-center">GERER VOTRE STOCK</h2> <br><br>
+
+    <div class="lead">
+        {% if is_granted('ROLE_PRODUCT') == false and is_granted('ROLE_ADMIN') == false %}
+        
+            <p class="text-center"> Bienvenue sur votre plateforme de gestion de stock. Vous pourrez ici obtenir des informations sur
+                les produits ainsi qu'à leurs nature.</p>
+        
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <p class="text-center">  Bienvenue sur votre plateforme de gestion de stock. Vous pouvez gerer vos produits, leurs natures
+                ainsi que les utilisateurs de cette plateforme.</p>  
+
+        {% elseif is_granted('ROLE_PRODUCT') %}
+                <p class="text-center">
+                    Bienvenue sur votre plateforme de gestion de stock. Vous pouvez consulter vos produits, les gerer administrateur
+                    qu'y porter ds modification si vous le souhaiter.
+                </p>
+        {% endif %}
     
+    </div> <br>
     <main>
         <div class="container mt-4">
 
-            <h1>Liste des produits</h1>
+            <div class="text-center">
 
-            <td>
-                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                    <a href=" {{path('product.new')}}" class="btn btn-success"> Enrégistrer un nouveau produit</a>
-                </font>
-    
-             <td> <br><br>
+                <h3 > <U>Liste des produits</U> </h3> 
 
+                <td>
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        <a href=" {{path('product.new')}}" class="btn btn-success"> Enrégistrer un nouveau produit</a>
+                    </font>
+        
+                <td> 
+            </div> <br><br>
 
             <table class="table table-hover">  
                     <thead>
@@ -36,8 +55,8 @@
                             <th scope="col">VOIR</th>
 
                             {% if is_granted('ROLE_ADMIN') %}
-                            <th scope="col">MODIFIER</th>
-                            <th scope="col">SUPPRIMER</th>
+                                <th scope="col">MODIFIER</th>
+                                <th scope="col">SUPPRIMER</th>
                             {% endif %}
                            
                         </tr>
@@ -87,6 +106,7 @@
                     {% endfor %}
                     
                 </tbody>
+        </table>
         </div>        
                  
     </main>

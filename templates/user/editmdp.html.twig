@@ -9,18 +9,15 @@
 
 {% block body  %} 
 
+        <a href="{{ path('product.list') }}"> <U>Retour à la page d'accueil</U> </a> <br> <br>
         
-        <h1> Formulaire de modification de mot de passe</h1> <br><br>
-
-        <a href="{{ path('user.list') }}">Retour</a>
-
-        
+        <h1> Formulaire de modification de mot de passe</h1> <br>
             
         {{form_start(form)}}
 
-            {{form_row(form.password,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
-            {{form_row(form.confirmPassword,{'label':'Email','attr':{'placeholder': "Adresse email"}})}}
-            {{form_row(form.newPassword,{'label':'Nom','attr':{'placeholder': "Nom d'utilisateur"}})}}
+            {{form_row(form.password,{'label':'Mot de passe actuel','attr':{'placeholder': "Veuiller saisir votre dernier mot de passe"}})}}
+            {{form_row(form.confirmPassword,{'label':'Nouveau mot de passe','attr':{'placeholder': "Veuiller saisir votre nouveau mot de passe"}})}}
+            {{form_row(form.newPassword,{'label':'Confirmer votre nouveau mot de passe','attr':{'placeholder': "Veuiller ressaisir votre nouveau mot de passe"}})}}
             
             
             <button type="submit" class="btn btn-success">
@@ -31,9 +28,6 @@
         
             </button>
 
-        
-
         {{form_end(form)}}
 
-        
 {% endblock %} 

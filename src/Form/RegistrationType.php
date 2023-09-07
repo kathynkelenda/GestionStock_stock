@@ -40,10 +40,10 @@ class RegistrationType extends AbstractType
                 'class'=> Position::class,
                 'choice_label'=>'namePosition'
             ])
-            
+
         ;
     }
-
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

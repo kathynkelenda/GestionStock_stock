@@ -62,11 +62,6 @@ class Product
     public $To_possess;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="To_know")
-     */
-    private $movements;
-
-    /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="To_manage")
      */
     private $users;
@@ -76,7 +71,6 @@ class Product
     {
         
         $this->To_come_from = new ArrayCollection();
-        $this->movements = new ArrayCollection();
         $this->users = new ArrayCollection();
         
         
@@ -173,35 +167,7 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, Movement>
-     */
-    public function getMovements(): Collection
-    {
-        return $this->movements;
-    }
 
-    public function addMovement(Movement $movement): self
-    {
-        if (!$this->movements->contains($movement)) {
-            $this->movements[] = $movement;
-            $movement->setToKnow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMovement(Movement $movement): self
-    {
-        if ($this->movements->removeElement($movement)) {
-            // set the owning side to null (unless already changed)
-            if ($movement->getToKnow() === $this) {
-                $movement->setToKnow(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, User>
@@ -229,7 +195,5 @@ class Product
 
         return $this;
     }
-
-    
 
 }

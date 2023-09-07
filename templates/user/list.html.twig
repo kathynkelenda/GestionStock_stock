@@ -12,10 +12,9 @@
             <link rel="stylesheet" href="{{ asset('../../assets/css/table.css') }}">
         {% endblock %}
 
-       
         <div class="container mt-4">
-        <h1>Liste des utilisateurs</h1>
 
+            <h1>Liste des utilisateurs</h1>
 
             <div class="col-10">
                 <td>
@@ -31,9 +30,9 @@
                     <thead>
                         <tr class="table-dark">
                             
-                            <th scope="col">NOM D'UTILISATEUR</th>
+                            <th scope="col">NOM</th>
                             <th scope="col">ADRESSE EMAIL</th>
-                            
+                            <th scope="col">ROLE</th>
                             <th scope="col">VOIR</th>
                             <th scope="col">MODIFIER</th>
                             <th scope="col">SUPPRIMER</th>
@@ -41,16 +40,28 @@
                         </tr>
                     </thead>
 
-
                 <tbody>
                     {% for us in user %}
                     
                         <tr class="table-secondary">
                         
-                        
                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.username}}</font></font></td>
                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{us.email}}</font></font></td>
+                            <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                            
+                                {% for role in us.roles %} 
 
+                                        {% if role == "ROLE_USER" %}
+                                            &nbsp;&nbsp; - Utilisateur
+                                        {% elseif role == "ROLE_PRODUCT" %}
+                                            &nbsp;&nbsp; - Gestionnaire des produits
+                                        {% elseif role == "ROLE_ADMIN" %}
+                                            &nbsp;&nbsp; - Administrateur
+                                        {% endif %}
+
+                                {% endfor %} 
+
+                            </font></font></td>
                             
                             <td>
                                 <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
@@ -61,17 +72,13 @@
                             </td>
 
                             <td>
-                                <a href="{{path('user.delete',{"id": us.id})}}" class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">
+                                <a href="{{path('user.delete',{"id": us.id})}}" 
+                                class="btn btn-warning" onclick="return confirm('Voulez-vous supprimer cet article?')">
                                     Supprimer
                                 </a>
-                            </td>
-                            
+                            </td>   
                         </tr>
-     
                 </tbody>  
-
-            
-
         </div>
 
                     {% else %}
@@ -82,9 +89,10 @@
                         </label>
 
                     {% endfor %}
-                         
+                          
         </div>
-    </table> 
+        
+   </table> 
            
 {% endblock body %}
 

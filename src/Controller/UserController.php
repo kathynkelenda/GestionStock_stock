@@ -29,6 +29,7 @@ class UserController extends AbstractController
 
      //AFFICHE TOUS LES UTILISATEURS
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/user/list",name="user.list")
      */
     public function list(ManagerRegistry $doctrine): Response
@@ -75,12 +76,13 @@ class UserController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            
+            return $this->redirectToRoute('user.list');
         }
-
+        
         return $this->render('user/edit.html.twig',[
             'form'=>$form->createView(),
-            'user'=>$user
+            'user'=>$user,
+            
         ]);
     }  
 
@@ -118,14 +120,14 @@ class UserController extends AbstractController
             'Suppression effectuée!'
         );
 
-        return $this->redirectToRoute( 'security.logout' );
+        return $this->redirectToRoute( 'user.list' );
         
     }
 
 
     //VOIR UN UTILISATEUR 
     /**
-     * @IsGranted("ROLE_ADMIN") 
+     *  
      * @Route("user/show/{id}", name="user.show")
      */
     public function show(int $id, ManagerRegistry $doctrine): Response{
@@ -141,11 +143,12 @@ class UserController extends AbstractController
                 'Cet User n\'a pas été trouvé' 
             );
         }
+       
         return $this->render('user/show.html.twig',[
             'user'=>$user,
+     
         ]);
         
-  
     }
 
     

@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
@@ -50,9 +51,13 @@ class User implements UserInterface
      */
     public $confirmPassword; 
 
+    /**
+     * 
+     */
+    public $newPassword; 
+
 
     
-
     /**
      * @ORM\ManyToOne(targetEntity=Position::class)
      */
@@ -78,8 +83,12 @@ class User implements UserInterface
      */
     private $prenom;
 
-    
+    /**
+     * @ORM\OneToOne(targetEntity=PasswordUpdate::class, mappedBy="To_update", cascade={"persist", "remove"})
+     */
+    private $passwordUpdate;
 
+    
     public function __construct()
     {
         $this->To_manage = new ArrayCollection();
@@ -116,6 +125,7 @@ class User implements UserInterface
         return $this;
     }
 
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -129,6 +139,7 @@ class User implements UserInterface
     }
 
 
+
     public function getConfirmPassword(): ?string
     {
         return $this->confirmPassword;
@@ -140,6 +151,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getNewPassword(): ?string
+    {
+        return $this->newPassword;   
+    }
+
+    public function setNewPassword(string $newPassword): self
+    {
+        $this->password = $newPassword;
+
+        return $this;
+    }
+
 
     public function getRoles(): array
     {
@@ -224,9 +248,27 @@ class User implements UserInterface
         return $this;
     }
 
-    
-    
-    
-    
+    public function getPasswordUpdate(): ?PasswordUpdate
+    {
+        return $this->passwordUpdate;
+    }
 
+    public function setPasswordUpdate(?PasswordUpdate $passwordUpdate): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($passwordUpdate === null && $this->passwordUpdate !== null) {
+            $this->passwordUpdate->setToUpdate(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($passwordUpdate !== null && $passwordUpdate->getToUpdate() !== $this) {
+            $passwordUpdate->setToUpdate($this);
+        }
+
+        $this->passwordUpdate = $passwordUpdate;
+
+        return $this;
+    }
+
+   
 }

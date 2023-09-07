@@ -6,21 +6,21 @@
 
 {% block body %}
 
+     <a href="{{ path('nature.list') }}"> <U>Retour à la liste des natures</U> </a>
+
         <h1> Détails sur cette nature </h1>
 
         <div class="alert alert-success">
 
             <table>
             <td>
-                <h4> Nom de cette nature de produit:</h4>{{nature.nameNature}} <br>
-                <h4> Sa catégorie:</h4>{{nature.ToBelong.nameCategory}} <br>
+                <h4> Nom :</h4>{{nature.nameNature}} <br>
+                <h4> Catégorie:</h4>{{nature.ToBelong.nameCategory}} <br>
                 
             </td>
             <table>
 
         </div>
 
-        <a href="{{ path('nature.list') }}"> Voir toutes les natures de produit</a>
-
-
+       
 {% endblock body %}

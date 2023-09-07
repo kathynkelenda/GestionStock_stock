@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 
-use App\phpmailer\ServiceMail;
 use App\Entity\User;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\UserPasswordType;
+use App\phpmailer\ServiceMail;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\FormError;
 use App\Form\ForgotPasswordRequestType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,16 +22,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 
 
-
-
+// Inscription, connexion, déconnexion et resetPassword
 
 
 class SecurityController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/inscription", name="security.inscription")
      */
     public function registration(Request $request, ManagerRegistry $doctrine, UserPasswordEncoderInterface $encoder): Response
@@ -49,14 +53,13 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('security.login');
+            return $this->redirectToRoute('user.list');
             $this->addFlash(
                 'success',
                 'Vous venez d\'ajouter un nouvel utilisateur'
             );
             
         }
-        
 
         return $this->render('security/registration.html.twig',[
             'form'=>$form->createView(),
@@ -92,98 +95,50 @@ class SecurityController extends AbstractController
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
-    //Permet en donnant son email, de recevoir un lien de réinitialisation
     /**
-     * @Route("/forgotPass",name="security.forgotPass")
-     */
-    public function forgotPass(UserRepository $UserRepository, TokenGeneratorInterface $TokenGeneratorInterface,
-        ManagerRegistry $doctrine, Request $request):Response{
-
-        $form=$this->createForm(ForgotPasswordRequestType::class);
-
-        $form->handleRequest($request);
-
-
-        if($form->isSubmitted() && $form->isValid()){
-            
-            //Rétrouve un utilisateur par son email
-            $user = $UserRepository->findOneByEmail($form->get('email')->getData());
-
-            //Verifie si on a un utilisateur
-            if($user){
-
-                //On génere un token de réinitialisation(Permettra d'identifier de manière unique l'utilisateur)  
-                $token = $TokenGeneratorInterface->generateToken();
-                $user ->setResetToken($token);
+ * @Route("/{id}/passwordUpdate", name="user.passwordUpdate")
+ */
+ 
+public function modificationPassword(User $user, Request $request, UserPasswordEncoderInterface $hasher, ManagerRegistry $doctrine)
+{
+    //On vérifie si l'utilisateur est connecté
+    if(!$this->getUser()){
+        return $this->redirectToRoute('security.login');
+    }
+    $form = $this->createForm(UserPasswordType::class);
+ 
+    $form->handleRequest($request);
+    //dd($form->getData());
+    if($form->isSubmitted() && $form->isValid())
+    {   
+        if($hasher->isPasswordValid($user,$form->getData()['password']))
+            {
+                $user->setPassword(
+                    $hasher->encodePassword(
+                        $user,
+                        $form->getData()['newPassword']
+                    )    
+                );
 
                 $manager = $doctrine->getManager();
                 $manager->persist($user);
                 $manager->flush();
-
-               
-                //On genere un lien de réinitialisation du mdp 
-                $url = $this->generateUrl('security.lienPass',['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
-               
-                //On crée les données du mail
-                $context = compact(['url'=>$url,'$user'=>$user]);
-
-                /*Envoi mail
-                $mail->send(
-                    'no-reply@gestionStock.fr',
-                     $user->getEmail(),
-                    'Réinitialisation de mot de passe',
-                    'resetPass_lien.html.twig',
-                    $context
-                    
-                );*/
-
-                    //Si l'utilisateur n'est pas retrouvé
-                    $this->addFlash('success','Email envoyé avec succès'
-                    );
-            return $this->redirectToRoute('security.login');
-
+                
+                //Mdp modifié
+                $this->addFlash( 'success','Le mot de passe a été modifié');
+                return $this->redirectToRoute('product.list');
+            }else{
+                //Mdp modifié
+                echo'mot de passe erroné.';  
             }
-
-            //Si l'utilisateur n'est pas retrouvé
-            $this->addFlash( 'danger','Un problème est survenu'
-            );
-            return $this->redirectToRoute('security.login');
-   
-        }
-    
-         return $this->render('security/resetPass_request.html.twig',[
-            'form' => $form->createView()
-         ]) ;
-        
     }
+    return $this->render('user/editmdp.html.twig', [
+        'form' => $form->createView(),
+        'user' => $user
+    ]);
+}
 
 
-
-    //Permet en en cliquant sur le lien de réinitialisation, reçu par mail de choisir un mdp
-     
-
-    /**
-     * @Route("/forgotPass/{token}",name="security.lienPass")
-     */
-    public function lienPass(){
-        
-    }
-
-
-
-    
 
 
 }

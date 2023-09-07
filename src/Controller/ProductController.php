@@ -44,7 +44,7 @@ class ProductController extends AbstractController
     
     // CREE ET MODIFIE UN PRODUIT
      /**
-    * @IsGranted("ROLE_ADMIN") 
+    * @IsGranted("ROLE_PRODUCT") 
      * @Route("/product/new",name="product.new")
      * @Route("/product/{id}/edit", name="product.edit")
      */
@@ -67,12 +67,6 @@ class ProductController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            /*if(!$product->getId()){
-                $product->setCreatedAt(new \DateTimeImmutable('now'));
-            }else{
-                $product->SetUpdateAt(new \DateTimeImmutable('now'));
-            }*/
-
             $manager = $doctrine->getManager();
             $manager->persist($product);
             $manager->flush();
@@ -90,7 +84,7 @@ class ProductController extends AbstractController
 
     //SUPPRIME UN PRODUIT 
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_PRODUCT")
      * @Route("/product/delete/{id}",name="product.delete")
      */
     public function delete(ManagerRegistry $doctrine, int $id):Response{
@@ -141,8 +135,7 @@ class ProductController extends AbstractController
         }
         return $this->render('product/show.html.twig',[
             'product'=>$product,
-        ]);
-        
+        ]);  
   
     }
 

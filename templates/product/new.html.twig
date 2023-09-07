@@ -18,6 +18,8 @@
 
 {% block body %}
 
+    <a href="{{ path('product.list') }}"> <U>Retour à la liste des produits</U> </a><br><br>
+
     {% if editAction %} 
         <h1> Modifier ce produit  </h1>
     {% else %}

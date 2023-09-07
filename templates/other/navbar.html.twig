@@ -8,34 +8,38 @@
 
                     <ul class="navbar-nav me-auto">
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_PRODUCT') %}
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Test/Gestion produit</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion produit</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{path('product.list')}}">Tous les produits</a>
                                 <a class="dropdown-item" href="{{path('product.new')}}">Créer un produit</a>
                                 <a class="dropdown-item" href="#"></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{path('nature.list')}}">Nature des produits</a>
+                                <a class="dropdown-item" href="{{path('nature.list')}}">Gerer la nature des produits</a>
                             </div>
                         </li>
 
-       
-
+        
+        {% endif %} 
+        {% if is_granted('ROLE_ADMIN') %}
+        
                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Test/Gestion utilisateurs</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion utilisateurs</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{path('user.list')}}">Tous les utilisateurs</a>
                                 <a class="dropdown-item" href="{{path('security.inscription')}}">Créer un utilisateur</a>
-                                <a class="dropdown-item" href="#"></a>
+                                <a class="dropdown-item" href=""></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href=""></a>
                             </div>
                         </li>
 
-
-        {% else %}
+            
+                        
+        {% endif %} 
+        {% if is_granted('ROLE_PRODUCT') == false and is_granted('ROLE_ADMIN') == false and app.user %}
 
             <li class="nav-item" >
                 <a href="{{path('product.list')}}" class="nav-link"> Tous les produits</a>
@@ -43,10 +47,6 @@
 
             <li class="nav-item" >
                 <a href="{{path('nature.list')}}" class="nav-link"> Nature des produits </a>
-            </li>
-
-            <li class="nav-item" >
-                <a href="" class="nav-link"> Gerer mon profil</a>
             </li>
 
         {% endif %}
@@ -57,9 +57,27 @@
                         </li>
             
             {% else %}
-                    
+                        
                         <li class="nav-item">
                             <a href="{{path('security.logout')}}" class="nav-link"> Déconnexion</a>
+                        </li>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+
+                            <li class="nav-item">
+                                <a href="" class="nav-link"> <p class="text-right"> Administrateur </p></a>
+                            </li>
+
+                        {% elseif is_granted('ROLE_PRODUCT') %}
+
+                            <li class="nav-item">
+                                <a href="" class="nav-link"> <p class="text-right"> Gestionnaire des produits </p></a>
+                            </li>
+
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <a href="{{path('user.show',{"id": app.user.id})}}" class="nav-link"> Profil</a>
                         </li>
 
             {% endif %}          
@@ -69,4 +87,3 @@
             </div>
         </nav>
 
-        <div class="container">

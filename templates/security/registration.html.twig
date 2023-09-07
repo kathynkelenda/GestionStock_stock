@@ -4,11 +4,12 @@
 
 {% block body %}
 
+    <a href="{{ path('user.list') }}"> <U>Retour à la liste des utilisateurs</U> </a><br><br>
+
     <h1>Formulaire d'inscription</h1>
 
     {{form_start(form)}}
-
-       
+  
         {{form_row(form.username,{'label':'Nom ','attr':{'placeholder': ' Entre votre nom de famille'}})}}
         {{form_row(form.prenom,{'label':'Prénom ','attr':{'placeholder': ' Entre votre prenom'}})}}
         {{form_row(form.email,{'label':'Email','attr':{'placeholder': "adam@gmail.com"}})}}
@@ -22,9 +23,5 @@
             Inscription
         </button>
     {{form_end(form)}}
-
-
-
-
 
 {% endblock %}
